@@ -57,18 +57,18 @@
           </div>
         </div>
       </div>
-      //<NasaApp />
+      <NasaApp />
     </div>
   </section>
 </template>
 
 <script>
-//import NasaApp from "./NasaApp.vue";
+import NasaApp from "./NasaApp.vue";
 import axios from "axios";
 
 export default {
   name: "WeatherApp",
-  //components: { NasaApp },
+  components: { NasaApp },
 
   data() {
     return {
