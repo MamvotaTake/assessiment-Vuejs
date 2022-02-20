@@ -1,11 +1,23 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import HelloWorld from "./HelloWorld";
+import { createWebHistory, createRouter } from "vue-router";
+import GalleryView from "@/views/GalleryView.vue";
+import WeatherView from "@/views/WeatherView.vue";
 
-Vue.use(VueRouter);
+const routes = [
+  {
+    path: "/",
+    name: "Weather",
+    component: WeatherView,
+  },
+  {
+    path: "/photo",
+    name: "Gallery",
+    component: GalleryView,
+  },
+];
 
-export const router = new VueRouter({
-  base: "/",
-  mode: "history",
-  routes: [{ path: "/hello", component: HelloWorld }],
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
 });
+
+export default router;
