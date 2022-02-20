@@ -8,18 +8,18 @@
         class="search-bar"
         placeholder="Search......."
         v-model="query"
-        @keypress="fetchWeather"
+        @keypress="fetchPhoto"
       />
     </div>
     <div class="photo-card row">
       <div class="col-lg-4 mb-4 mb-lg-0">
         <img
-          :src="photo.urls"
+          :src="photo.urls.full"
           class="w-50 h-50 shadow-1-strong rounded mb-4"
           :alt="photo"
         />
-        <h1>ok</h1>
-        <p>ok</p>
+        <h1>{{ photo.location.title }}</h1>
+        <p>{{ photo.user.name }}</p>
       </div>
     </div>
     <!-- Gallery -->
@@ -28,35 +28,49 @@
 
 <script>
 import axios from "axios";
+// import dotenv from "dotenv";
+
+// dotenv.config();
+
 export default {
   name: "GalleryApp",
   //   components:{NavigationBar}
   data() {
     return {
       accessKey: "knLKaYeHCuLGcs9gtp1ISo5n-toQFLUsdxIdULkn_4A",
-      secretKey: "fG1mDmHdyRYXnqjWdl69Ym8tpB49CRRzmEh8fMcVmIs",
-      url_base: `https://api.unsplash.com/photos/random`,
-      photo: {},
       query: "",
+      url_base: `https://api.unsplash.com/photos/random/`,
+      photo: {},
     };
   },
 
   methods: {
-    fetchWeather() {
-      axios
-        .get(this.url_base + `?client_id=${this.accessKey}`)
-        .then((response) => {
-          this.photo = response.data;
-          console.log(this.photo);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    fetchWeather(e) {
+      if (e.key === "Enter") {
+        axios
+          .get(this.url_base + `?client_id=${this.accessKey}`)
+          .then((response) => {
+            this.photo = response.data;
+            console.log(this.photo);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     },
   },
 
   created() {
-    this.fetchWeather;
+    axios
+      .get(this.url_base + `?client_id=${this.accessKey}`)
+      .then((response) => {
+        this.photo = response.data;
+        console.log(this.photo);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // this.fetchPhoto;
   },
 };
 </script>
@@ -73,6 +87,7 @@ export default {
 
   .photo-card {
     width: 600px;
+    height: auto;
     padding: 15px;
     margin: 0px auto;
     background-color: #fff;
@@ -83,25 +98,34 @@ export default {
     img {
       margin: 0px auto;
     }
+    h1 {
+      font-size: 18px;
+      font-weight: bold;
+    }
 
     h1,
     p {
       font-family: "Courier New", Courier, monospace;
-      text-align: center;
+      text-align: left;
       color: #17355f;
+      margin-bottom: 20px;
     }
 
     &:hover {
-      width: 500px;
-      height: 300px;
+      background-color: #17355f;
       transition: ease-in-out 2s;
-      transform: scale(1);
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
         0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
       h1,
       p {
-        color: rgb(20, 3, 3);
+        color: #fff;
+      }
+
+      img {
+        transform: scale(1);
+        width: 200px;
+        height: 300px;
       }
     }
   }
