@@ -147,11 +147,12 @@ export default {
 }
 
 section.day {
-  width: 900px;
+  width: 81%;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
   overflow: hidden;
   margin: 0px auto;
+  padding: 1px;
   background-image: url("../assets/images/day.jpg");
   background-size: center;
   background-position: center;
@@ -160,11 +161,12 @@ section.day {
 }
 
 section.night {
-  width: 900px;
+  width: 81%;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
   overflow: hidden;
   margin: 0px auto;
+  padding: 1px;
   background-image: url("../assets/images/R.jpg");
   background-size: center;
   background-position: center;

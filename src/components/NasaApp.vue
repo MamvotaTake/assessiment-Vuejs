@@ -69,14 +69,14 @@ export default {
       align-items: center;
     }
     .card-title {
-      margin-top: -300px;
+      margin-top: -70px;
       width: 800px;
       text-align: center;
     }
 
     .card-text {
-      margin: 120px;
-      width: 700px;
+      margin: 100px;
+      width: 900px;
       text-align: center;
       justify-content: center;
       display: block;

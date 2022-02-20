@@ -1,5 +1,5 @@
 import { createWebHistory, createRouter } from "vue-router";
-import GalleryView from "@/views/GalleryView.vue";
+import PhotoView from "@/views/PhotoView.vue";
 import WeatherView from "@/views/WeatherView.vue";
 
 const routes = [
@@ -11,7 +11,7 @@ const routes = [
   {
     path: "/photo",
     name: "Gallery",
-    component: GalleryView,
+    component: PhotoView,
   },
 ];
 
