@@ -2,7 +2,7 @@
   <section
     class="vh-60"
     style="background-color: #4b515d"
-    :class="typeof getHour() > 11 ? 'night' : 'night'"
+    :class="getHour() < 12 ? 'day' : 'night'"
   >
     <!-- <NavigationBar /> -->
 
@@ -132,9 +132,7 @@ export default {
     },
 
     getHour() {
-      const d = new Date();
-      const hours = d.getHours();
-      return `${hours}`;
+      return parseInt(this.timeBuilder().slice(0, 2));
     },
   },
 };

@@ -8,7 +8,7 @@
         class="search-bar"
         placeholder="Search......."
         v-model="query"
-        @keypress="fetchPhoto"
+        @keypress="findPhoto"
       />
     </div>
     <div class="photo-card row">
@@ -16,9 +16,9 @@
         <img
           :src="photo.urls.full"
           class="w-50 h-50 shadow-1-strong rounded mb-4"
-          :alt="photo"
+          :alt="photo.description"
         />
-        <h1>{{ photo.location.title }}</h1>
+        <h1>{{ photo.alt_description }}</h1>
         <p>{{ photo.user.name }}</p>
       </div>
     </div>
@@ -39,19 +39,30 @@ export default {
     return {
       accessKey: "knLKaYeHCuLGcs9gtp1ISo5n-toQFLUsdxIdULkn_4A",
       query: "",
-      url_base: `https://api.unsplash.com/photos/random/`,
-      photo: {},
+      url_base_search: `https://api.unsplash.com/search/photos`,
+      url_base_random: `https://api.unsplash.com/photos/random`,
+      photo: { urls: { full: "" }, user: { name: "" } },
     };
   },
-
+  computed: {
+    getQuery() {
+      return this.query;
+    },
+  },
   methods: {
-    fetchWeather(e) {
-      if (e.key === "Enter") {
+    findPhoto(e) {
+      if (e.key == "Enter") {
+        console.log(this.query);
         axios
-          .get(this.url_base + `?client_id=${this.accessKey}`)
+          .get(
+            this.url_base_search +
+              "?query=" +
+              this.query +
+              `&client_id=${this.accessKey}`
+          )
           .then((response) => {
-            this.photo = response.data;
-            console.log(this.photo);
+            this.photo = response.data.results[0];
+            console.log(response, this.photo);
           })
           .catch((err) => {
             console.log(err);
@@ -60,17 +71,16 @@ export default {
     },
   },
 
-  created() {
+  mounted() {
     axios
-      .get(this.url_base + `?client_id=${this.accessKey}`)
+      .get(this.url_base_random + `?client_id=${this.accessKey}`)
       .then((response) => {
         this.photo = response.data;
-        console.log(this.photo);
+        console.log(this.randomPhoto);
       })
       .catch((err) => {
         console.log(err);
       });
-    // this.fetchPhoto;
   },
 };
 </script>
@@ -87,7 +97,7 @@ export default {
 
   .photo-card {
     width: 600px;
-    height: auto;
+    height: 300px;
     padding: 15px;
     margin: 0px auto;
     background-color: #fff;
@@ -108,7 +118,7 @@ export default {
       font-family: "Courier New", Courier, monospace;
       text-align: left;
       color: #17355f;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
 
     &:hover {
